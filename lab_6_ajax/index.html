@@ -19,8 +19,20 @@
     function loadData() {
       fetch('ajax_sample.json')
         .then(res => res.json())
-        .then(res => res.map(c => c.code))
-        .then(codes => document.querySelector(".content").innerText = codes);
+        .then(res => res.map(c => c.name))
+        .then(codnameses => {
+          var lst = "";
+          for (let i = 0; i < 15; i +=1) {
+            var temp = Math.floor(Math.random() * names.length-1);
+            if (!lst.includes(names[temp])) {
+              lst+= "<li>" + (names[temp]) + "</li>";
+            } else {
+              i -= 1;
+            }
+          }  
+          return lst
+        })
+        .then(names => document.querySelector(".content").innerText = "<ol>" + names + "</ol>");
     }
   </script>
 </body>
