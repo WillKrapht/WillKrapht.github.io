@@ -17,9 +17,25 @@
   </div>
   <script>
     function loadData() {
-      fetch('ajax_sample.json')
+      fetch('https://api.umd.io/v0/bus/routes')
         .then(res => res.json())
-        .then(data => document.querySelector(".content").innerText = data);
+        .then(json => {
+          json.map(el => el.title = el.title.match(/[A-Z].*/g))
+          var ids = json.map(j => j.route_id)
+          var names = json.map(j => j.title)
+          var lst = ""
+          for (let i = 0; i < names.length; i += 1) {
+            lst += "<li>" + names[i] + ", " + ids[i] + "</li>"
+          }
+          document.querySelector(".content").innerHTML = "<ul>" + lst + "</ul>"
+          var temp = json.find(el => el.route_id === "114")
+          document.querySelector(".header").innerHTML = "UMD Bus Route " + temp.route_id + " " + temp.title;
+        })
+        /*.then(json => {
+          var temp = json.find(el => el.route_id === "114")
+          document.querySelector(".header").innerHTML = "UMD Bus Route " + temp.route_id + " " + temp.title;
+        });*/
+        //document.querySelector(".content").innerText = data);
     }
   </script>
 </body>
