@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Test AJAX page</title>
+  <link rel="stylesheet" type="text/css" href="./lab_styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="wrapper">
+      <div class="header">API Loader</div>
+      <button class="button" onclick="loadData()">Load Some JSON from a server</button>
+      <div class="content"></div>
+      <div class="footer"></div>
+    </div>
+  </div>
+  <script>
+    function loadData() {
+      console.log('fetch'); // confirm code is running on click
+      fetch('/api')
+        .then(res => res.json())
+        .then(res => {
+          console.log(res); // logging step to check what we got
+          return res;
+        })
+        .then(res => {
+          var temp = res.data;
+          console.log(temp);
+          var lst = "";
+          for (let i = 0; i < temp.length; i += 1) {
+            lst += "<li>" + temp[i] + "</li>"
+          }
+          document.querySelector(".content").innerHTML = "<ol>" + lst + "</ol>";
+          return res;
+        });
+        /*.then(res => res.data.map(c => c.name))
+        .then(names => document.querySelector(".content").innerText = names);*/
+    }
+  </script>
+</body>
+
+</html>

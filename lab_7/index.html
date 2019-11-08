@@ -25,6 +25,7 @@
           return json;
         })
         .then(json => {
+          console.log(json);
           var ids = json.map(j => j.route_id)
           var names = json.map(j => j.title)
           var lst = ""
@@ -39,6 +40,8 @@
           document.querySelector(".header").innerHTML = "UMD Bus Route " + temp.route_id + " " + temp.title;
         })
         /*.then(json => {
+          "123 This one 123 this one"
+          {"route_id" : "123" "title" }
           var temp = json.find(el => el.route_id === "114")
           document.querySelector(".header").innerHTML = "UMD Bus Route " + temp.route_id + " " + temp.title;
         });*/
